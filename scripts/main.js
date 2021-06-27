@@ -16,9 +16,29 @@ function initializeGrid(size){
         square.classList.add("square");
         square.style.width = (500 / size) + "px";
         square.style.height =  (500 / size) + "px";
+        square.addEventListener("mouseover", (e) =>{
+            let r = Math.floor(Math.random() * 255);
+            let g = Math.floor(Math.random() * 255);
+            let b = Math.floor(Math.random() * 255);
+            e.target.style.backgroundColor = 'rgb(' + r + ',' + g + ',' + b + ')';
+        });
         row.appendChild(square);
     }
 }
 
 let gridSize = 16;
 initializeGrid(gridSize);
+
+const button = document.querySelector("button");
+button.addEventListener("click", () =>{
+    let squares = document.querySelectorAll(".square");
+    squares.forEach(square => {
+        square.style.backgroundColor = "";
+        square.parentElement.removeChild(square);
+    });
+    gridSize = Number(prompt("Enter grid size:", "16"));
+    while(gridSize<1 || gridSize>64){
+        gridSize = Number(prompt("Enter grid size:", "16"));
+    }
+    initializeGrid(gridSize);
+});
